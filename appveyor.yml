@@ -2,6 +2,8 @@ version: 1.0.{build}
 image:
 - Visual Studio 2013
 - Visual Studio 2015
+configuration: Release
+platform: x64
 before_build:
 - cmd: >-
     appveyor DownloadFile https://download.affectiva.com/windows/AffdexSDK-3.1-368-win64.exe -FileName AffdexSDK-3.1-368-win64.exe
@@ -9,14 +11,21 @@ before_build:
     AffdexSDK-3.1-368-win64.exe /S
 
     nuget restore affdex-win-samples.sln
+
 build:
+  project: affdex-win-samples.sln
   parallel: true
   verbosity: detailed
+after_build:
+- cmd:
+    echo d | xcopy /E "C:\Program Files\Affectiva\AffdexSDK\data" bin\x64\Release\data
 artifacts:
-- path: '\x64\Release'
+- path: 'bin\x64\Release'
 deploy:
 - provider: GitHub
-  release: 3.1
+  release: cpp-sample-app-v$(appveyor_build_version)
+  artifact: 'bin\x64\Release.zip'
   auth_token:
     secure: sjCE8t4b8ME8j2D6e0kRpNib8STOljgGVPdexj4n0gXU/nYxFkdaI9GXRukRHri5
-  artifact: Release.zip
+  on:
+    branch: master                 # release from master branch only
