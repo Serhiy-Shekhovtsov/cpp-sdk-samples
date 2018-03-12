@@ -1,19 +1,18 @@
 #include "Visualizer.h"
 #include <boost/format.hpp>
 #include "affdex_small_logo.h"
+#include <algorithm>
 
-Visualizer::Visualizer()
+Visualizer::Visualizer():
+  GREEN_COLOR_CLASSIFIERS({
+    "joy"
+  }),
+  RED_COLOR_CLASSIFIERS({
+    "anger", "disgust", "sadness", "fear", "contempt"
+  })
 {
     logo_resized = false;
     logo = cv::imdecode(cv::InputArray(small_logo), CV_LOAD_IMAGE_UNCHANGED);
-
-    GREEN_COLOR_CLASSIFIERS = {
-      "joy"
-    };
-
-    RED_COLOR_CLASSIFIERS = {
-      "anger", "disgust", "sadness", "fear", "contempt"
-    };
 
     EXPRESSIONS = {
         "smile", "innerBrowRaise", "browRaise", "browFurrow", "noseWrinkle",
@@ -222,10 +221,10 @@ void Visualizer::drawEqualizer(const std::string& name, const float value, const
     {
         cv::Scalar scalar_clr = color;
         float  alpha = 0.8;
-        const int ii = std::max( float(i), 0.0f);
-        const int jj = std::max( float(j), 0.0f);
-        const int width = std::min(float(block_width), float(img.size().width-ii));
-        const int height = std::min(float(block_height), float(img.size().height-jj));
+        const int ii = (std::max)( float(i), 0.0f);
+        const int jj = (std::max)( float(j), 0.0f);
+        const int width = (std::min)(float(block_width), float(img.size().width-ii));
+        const int height = (std::min)(float(block_height), float(img.size().height-jj));
         if (height < 0 || width < 0) continue;
         cv::Mat roi = img(cv::Rect(ii, jj, width, height));
         if (x >= blocks)
@@ -280,7 +279,7 @@ void Visualizer::overlayImage(const cv::Mat &foreground, cv::Mat &background, cv
 {
 
     // start at the row indicated by location, or at row 0 if location.y is negative.
-    for(int y = std::max(location.y , 0); y < background.rows; ++y)
+    for(int y = (std::max)(location.y , 0); y < background.rows; ++y)
     {
         int fY = y - location.y; // because of the translation
 
@@ -291,7 +290,7 @@ void Visualizer::overlayImage(const cv::Mat &foreground, cv::Mat &background, cv
         // start at the column indicated by location,
 
         // or at column 0 if location.x is negative.
-        for(int x = std::max(location.x, 0); x < background.cols; ++x)
+        for(int x = (std::max)(location.x, 0); x < background.cols; ++x)
         {
             int fX = x - location.x; // because of the translation.
 

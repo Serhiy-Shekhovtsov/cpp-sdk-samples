@@ -59,6 +59,7 @@ xcopy /d /s /y "C:\Program Files\Affectiva\AffdexSDK\data" "$(OutDir)data\"</Com
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\common\Visualizer.cpp" />
     <ClCompile Include="opencv-webcam-demo.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -66,7 +67,6 @@ xcopy /d /s /y "C:\Program Files\Affectiva\AffdexSDK\data" "$(OutDir)data\"</Com
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\common\Visualizer.h" />
-    <ClInclude Include="..\common\Visualizer.cpp" />
     <ClInclude Include="..\common\affdex_small_logo.h" />
     <ClInclude Include="..\common\AFaceListener.hpp" />
     <ClInclude Include="..\common\PlottingImageListener.hpp" />
