@@ -65,6 +65,9 @@ xcopy /d /s /y "C:\Program Files\Affectiva\AffdexSDK\data" "$(OutDir)data\"</Com
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\common\Visualizer.h" />
+    <ClInclude Include="..\common\Visualizer.cpp" />
+    <ClInclude Include="..\common\affdex_small_logo.h" />
     <ClInclude Include="..\common\AFaceListener.hpp" />
     <ClInclude Include="..\common\PlottingImageListener.hpp" />
     <ClInclude Include="..\common\StatusListener.hpp" />
